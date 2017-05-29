@@ -33,4 +33,21 @@ class PasswordsTest extends TestCase
         $this->get(route('passwords.create'))
             ->assertRedirect(route('login'));
     }
+
+    /** @test */
+    public function a_user_can_only_see_their_see_their_own_passwords()
+    {
+        $user = create('App\User');
+        $this->signIn($user);
+
+        $password = create('App\Password', ['user_id' => $user->id]);
+        $this->get(route('passwords.index'))
+            ->assertSee($password->account);
+
+        $another_user = create('App\User');
+        $another_users_password = create('App\Password', ['user_id' => $another_user->id]);
+        $this->get(route('passwords.index'))
+            ->assertDontSee($another_users_password->account);
+
+    }
 }

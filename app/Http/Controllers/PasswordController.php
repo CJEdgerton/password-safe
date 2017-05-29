@@ -21,7 +21,7 @@ class PasswordController extends Controller
      */
     public function index()
     {
-        $passwords = Password::where('user_id', auth()->id())->get();
+        $passwords = Password::where('user_id', auth()->id())->latest()->paginate(10);
 
         return view('passwords.index')->with('passwords', $passwords);
     }

@@ -16,5 +16,7 @@ class UsersTableSeeder extends Seeder
     		'email'=> 'vader@deathstar.com',
     		'password' => bcrypt('password'),
     	]);
+
+        factory('App\User', 10)->create();
     }
 }
