@@ -46,6 +46,7 @@ class PasswordController extends Controller
     public function store(StoresPassword $request)
     {
         $password = $request->store();
+        return redirect()->route('passwords.index')->with('flash', 'Password saved.');
     }
 
     /**
@@ -86,5 +87,6 @@ class PasswordController extends Controller
     {
         $this->authorize('delete', $password);
         $password->delete();
+        return redirect()->route('passwords.index')->with('flash', 'Password deleted.');
     }
 }

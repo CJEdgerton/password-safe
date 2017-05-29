@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <form action="{{ route('passwords.store') }}" method="POST" role="form">
 	{{ csrf_field() }}
 
@@ -20,3 +24,5 @@
 
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+@endsection

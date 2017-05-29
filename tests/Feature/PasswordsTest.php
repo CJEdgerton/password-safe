@@ -85,7 +85,6 @@ class PasswordsTest extends TestCase
     public function an_authenticated_user_can_only_update_their_own_password()
     {
         $this->withExceptionHandling();
-        // $this->disableExceptionHandling();
         
         $user = create('App\User');
         $this->signIn($user);

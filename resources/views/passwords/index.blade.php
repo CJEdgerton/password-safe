@@ -1,9 +1,15 @@
+@extends('layouts.app')
+
+@section('content')
+
 <table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Account</th>
 			<th>Username</th>
 			<th>Password</th>
+			<th>Last Updated</th>
+			<th>Edit</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -13,10 +19,15 @@
 			<td>{{ $password->username }}</td>
 			<td>{{ $password->password }}</td>
 			{{-- <td>{{ $password->created_at->format('m/d/Y') }}</td> --}}
-			<td>{{ $password->created_at }}</td>
+			<td>{{ $password->updated_at }}</td>
+			<td><a href="{{ route('passwords.edit', ['id' => $password->id]) }}"><span class="glyphicon glyphicon-edit"></span></td>
 		</tr>
 		@endforeach
 	</tbody>
 </table>
 
 {{ $passwords->links() }}
+
+<a href="{{ route('passwords.create') }}" class="btn btn-default pull-right">Create</a>
+
+@endsection
