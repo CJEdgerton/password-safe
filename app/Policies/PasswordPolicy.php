@@ -42,7 +42,7 @@ class PasswordPolicy
      */
     public function update(User $user, Password $password)
     {
-        //
+        return $password->user_id === $user->id;
     }
 
     /**

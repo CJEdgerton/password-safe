@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Password;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoresPassword;
+use App\Http\Requests\UpdatesPassword;
 
 class PasswordController extends Controller
 {
@@ -48,17 +49,6 @@ class PasswordController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Password  $password
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Password $password)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Password  $password
@@ -66,7 +56,8 @@ class PasswordController extends Controller
      */
     public function edit(Password $password)
     {
-        //
+        $this->authorize('update', $password);
+        return view('passwords.edit')->with('password', $password);
     }
 
     /**
@@ -76,9 +67,13 @@ class PasswordController extends Controller
      * @param  \App\Password  $password
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Password $password)
+    public function update(UpdatesPassword $request, Password $password)
     {
-        //
+        $this->authorize('update', $password);
+        $request->update($password);
+
+        return redirect()->route('passwords.index')
+            ->with('flash', 'Password Updated');
     }
 
     /**
