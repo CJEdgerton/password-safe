@@ -21,3 +21,12 @@
 
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<hr>
+
+<form action="{{ route('passwords.destroy', ['id' => $password->id]) }}" method="POST" role="form">
+	{{ csrf_field() }}
+	{{ method_field('DELETE') }}
+
+	<button type="submit" class="btn btn-primary">Delete</button>
+</form>

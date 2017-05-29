@@ -54,6 +54,6 @@ class PasswordPolicy
      */
     public function delete(User $user, Password $password)
     {
-        //
+        return $password->user_id === $user->id;
     }
 }

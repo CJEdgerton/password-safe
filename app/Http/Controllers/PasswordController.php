@@ -84,6 +84,7 @@ class PasswordController extends Controller
      */
     public function destroy(Password $password)
     {
-        //
+        $this->authorize('delete', $password);
+        $password->delete();
     }
 }

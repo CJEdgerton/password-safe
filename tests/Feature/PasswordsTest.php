@@ -12,21 +12,7 @@ class PasswordsTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function an_authenticated_use_can_create_a_password()
-    {
-        $this->signIn();
-        $password = make('App\Password', ['user_id' => auth()->id()]);
-
-        $this->post(route('passwords.store'), $password->toArray());
-
-        $this->assertDatabaseHas('passwords', [
-            'user_id' => auth()->id(), 
-            'account' => $password->account
-        ]);
-    }
-
-    /** @test */
-    public function an_unauthenticated_use_cannot_do_anything()
+    public function an_unauthenticated_user_cannot_do_anything()
     {
         $this->withExceptionHandling();
         $password = create('App\Password');
@@ -45,7 +31,21 @@ class PasswordsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_only_see_their_see_their_own_passwords()
+    public function an_authenticated_user_can_create_a_password()
+    {
+        $this->signIn();
+        $password = make('App\Password', ['user_id' => auth()->id()]);
+
+        $this->post(route('passwords.store'), $password->toArray());
+
+        $this->assertDatabaseHas('passwords', [
+            'user_id' => auth()->id(), 
+            'account' => $password->account
+        ]);
+    }
+
+    /** @test */
+    public function an_authenticated_user_can_only_see_their_see_their_own_passwords()
     {
         $user = create('App\User');
         $this->signIn($user);
@@ -62,7 +62,7 @@ class PasswordsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_edit_their_own_password()
+    public function an_authenticated_user_can_only_edit_their_own_password()
     {
         $this->withExceptionHandling();
 
@@ -82,7 +82,7 @@ class PasswordsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_update_their_own_password()
+    public function an_authenticated_user_can_only_update_their_own_password()
     {
         $this->withExceptionHandling();
         // $this->disableExceptionHandling();
@@ -105,4 +105,29 @@ class PasswordsTest extends TestCase
         )->assertStatus(403);
 
     }
+
+    /** @test */
+    public function an_authenticated_user_can_only_delete_their_own_password()
+    {
+        $this->withExceptionHandling();
+        
+        $user = create('App\User');
+        $this->signIn($user);
+
+        $password = create('App\Password', ['user_id' => $user->id]);
+
+        $this->delete(
+            route('passwords.destroy', ['id' => $password->id]), 
+            $password->toArray() 
+        ); 
+        $this->assertDatabaseMissing('passwords', ['id' => $password->id]);
+
+        $another_user = create('App\User');
+        $another_users_password = create('App\Password', ['user_id' => $another_user->id]);
+        $this->delete(
+            route('passwords.destroy', ['id' => $another_users_password->id]), 
+            $password->toArray() 
+        )->assertStatus(403);
+
+    } 
 }
