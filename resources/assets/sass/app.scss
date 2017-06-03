@@ -13,6 +13,9 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Datatables
+@import "node_modules/datatables.net-bs/css/dataTables.bootstrap";
+
 // Dump
 #passwords-table {
 	th {
@@ -30,4 +33,20 @@
 			margin-bottom: 0px;
 		}
 	}
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
 }

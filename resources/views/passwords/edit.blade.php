@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-6 col-md-offset-3">
 
     <ol class="breadcrumb">
         <li>
@@ -15,7 +15,7 @@
     	{{ csrf_field() }}
     	{{ method_field('PUT')}}
 
-    	<div class="panel panel-default">
+    	<div class="panel panel-default text-center">
 
             <div class="panel-heading">
                 <h3 class="panel-title">Edit Info</h3>

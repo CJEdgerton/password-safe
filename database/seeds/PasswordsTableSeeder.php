@@ -11,6 +11,6 @@ class PasswordsTableSeeder extends Seeder
      */
     public function run()
     {
-    	factory('App\Password', 50)->create();
+    	factory('App\Password', 500)->create();
     }
 }

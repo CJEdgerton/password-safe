@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-6 col-md-offset-3">
 	<ol class="breadcrumb">
 	    <li>
 	        <a href="{{ route('passwords.index') }}">Home</a>
@@ -13,7 +13,7 @@
 	<form action="{{ route('passwords.store') }}" method="POST" role="form">
 		{{ csrf_field() }}
 
-		<div class="panel panel-default">
+		<div class="panel panel-default text-center">
 
 		    <div class="panel-heading">
 		        <h3 class="panel-title">Create Password</h3>
