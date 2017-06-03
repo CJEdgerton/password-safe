@@ -12,3 +12,22 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Dump
+#passwords-table {
+	th {
+		text-align: center;
+	}
+	td {
+		text-align: center;
+	}
+}
+
+#show-password-modal {
+	.modal-body {
+		padding: 75px;
+		p.lead {
+			margin-bottom: 0px;
+		}
+	}
+}

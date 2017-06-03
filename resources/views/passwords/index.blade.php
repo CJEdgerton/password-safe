@@ -4,7 +4,7 @@
 
 <div class="panel panel-default">
 	<div class="panel-body">
-		<table class="table table-hover">
+		<table class="table table-hover" id="passwords-table">
 			<thead>
 				<tr>
 					<th>Account</th>
@@ -19,7 +19,12 @@
 				<tr>
 					<td>{{ $password->account }}</td>
 					<td>{{ $password->username }}</td>
-					<td>{{ decrypt($password->password) }}</td>
+					<td>
+						<a href="#show-password-modal" data-toggle="modal">
+							<span class="glyphicon glyphicon-eye-open"></span>
+						</a>
+					</td>
+					{{-- <td>{{ decrypt($password->password) }}</td> --}}
 					{{-- <td>{{ $password->created_at->format('m/d/Y') }}</td> --}}
 					<td>{{ $password->updated_at }}</td>
 					<td>
@@ -33,6 +38,16 @@
 		{{ $passwords->links() }}
 
 		<a href="{{ route('passwords.create') }}" class="btn btn-default pull-right">Create</a>
+	</div>
+</div>
+
+<div class="modal fade" id="show-password-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p class="lead text-center">{{ decrypt($password->password) }}</p>
+			</div>
+		</div>
 	</div>
 </div>
 
