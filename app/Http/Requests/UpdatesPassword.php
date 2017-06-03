@@ -25,9 +25,10 @@ class UpdatesPassword extends FormRequest
     public function rules()
     {
         return [
-            'account'  => 'string|required',
-            'username' => 'string|required',
-            'password' => 'string|required',
+            'account'          => 'required|string',
+            'username'         => 'required|string',
+            'password'         => 'required|string',
+            'confirm_password' => 'required|string|same:password',
         ];
     }
 
@@ -37,9 +38,15 @@ class UpdatesPassword extends FormRequest
             'user_id'  => auth()->id(),
             'account'  => $this->account,
             'username' => $this->username,
-            'password' => $this->password,
+            'password' => encrypt($this->password),
         ]);
 
         return $password;
+    }
+
+    public function messages() {
+        return [
+            'confirm_password.same' => 'Your passwords do not match!',
+        ];
     }
 }

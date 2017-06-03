@@ -19,7 +19,7 @@ class CreatePasswordsTable extends Migration
                 ->references('id', 'users');
             $table->string('account');
             $table->string('username');
-            $table->string('password');
+            $table->text('password');
             $table->timestamps();
         });
     }

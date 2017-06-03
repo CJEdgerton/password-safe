@@ -29,6 +29,6 @@ $factory->define(App\Password::class, function (Faker\Generator $faker) {
         'user_id'  => returnRandomId('App\User'),
         'account'  => $faker->word,
         'username' => $usernames[rand(0, count($usernames)-1)],
-        'password' => bcrypt($faker->password),
+        'password' => encrypt($faker->password),
 	];	
 });

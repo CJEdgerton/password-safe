@@ -35,6 +35,7 @@ class PasswordsTest extends TestCase
     {
         $this->signIn();
         $password = make('App\Password', ['user_id' => auth()->id()]);
+        $password->confirm_password = $password->password;
 
         $this->post(route('passwords.store'), $password->toArray());
 
@@ -90,6 +91,7 @@ class PasswordsTest extends TestCase
         $this->signIn($user);
 
         $password = create('App\Password', ['user_id' => $user->id]);
+        $password->confirm_password = $password->password;
 
         $this->patch(
             route('passwords.update', ['id' => $password->id]), 
@@ -98,6 +100,7 @@ class PasswordsTest extends TestCase
 
         $another_user = create('App\User');
         $another_users_password = create('App\Password', ['user_id' => $another_user->id]);
+        $another_users_password->confirm_password = $another_users_password->password;
         $this->patch(
             route('passwords.update', ['id' => $another_users_password->id]),
             $another_users_password->toArray()
